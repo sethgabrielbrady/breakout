@@ -10,20 +10,23 @@
     </style>
 </head>
 <body>
-<canvas id="myCanvas" width="480" height="320"></canvas>
+<canvas id="myCanvas" width="800" height="600"></canvas>
 
 <script>
+
   var score = 0;
   var lives = 3;
   var canvas = document.getElementById("myCanvas");
   var ctx = canvas.getContext("2d");
-  var x = canvas.width/2;
+  canvas.width = window.innerWidth *.7;
+  canvas.height = window.innerHeight *.7;
+  var x = canvas.height/2;
   var y = canvas.height-30;
 
   //the control the draw speed of the ball
-  var dx = 2;
-  var dy = -2;
-  
+  var dx = 4;
+  var dy = -4;
+
   var ballRadius = 10;
   var paddleHeight = 10;
   var paddleWidth = 75;
@@ -32,13 +35,13 @@
   var leftPressed = false
 
   //bricks
-  var brickRowCount = 3;
-  var brickColumnCount = 5;
-  var brickWidth = 75;
+  var brickRowCount = 4;
+  var brickColumnCount = Math.ceil(canvas.width / 100); //need to figure this out...
+  var brickWidth = brickColumnCount * 7;
   var brickHeight = 20;
   var brickPadding = 10;
   var brickOffsetTop = 30;
-  var brickOffsetLeft = 30;
+  var brickOffsetLeft = 10;
 
   //2d array to hold the bricks
   var bricks = [];
@@ -70,15 +73,15 @@
     for(c=0; c<brickColumnCount; c++) {
       for(r=0; r<brickRowCount; r++) {
         if(bricks[c][r].status == 1) {
-            var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-            var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
-            bricks[c][r].x = brickX;
-            bricks[c][r].y = brickY;
-            ctx.beginPath();
-            ctx.rect(brickX, brickY, brickWidth, brickHeight);
-            ctx.fillStyle = "#ffffff";
-            ctx.fill();
-            ctx.closePath();
+          var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+          var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+          bricks[c][r].x = brickX;
+          bricks[c][r].y = brickY;
+          ctx.beginPath();
+          ctx.rect(brickX, brickY, brickWidth, brickHeight);
+          ctx.fillStyle = "#ffffff";
+          ctx.fill();
+          ctx.closePath();
         }
       }
     }
